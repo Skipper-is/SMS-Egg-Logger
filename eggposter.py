@@ -56,20 +56,19 @@ def initialisePhone():
     global phone
     phone = sim800l.Phone()
     while True:  # Check if the phone is online
-        reply = phone.sendCommand("AT")
+        reply = phone.sendCommand("AT")  # Check to see if the module is active
         if ("OK" in reply):
-            phone.sendCommand("AT+CMGF=1")
+            phone.sendCommand("AT+CMGF=1")  # These commands are officially sent by the sim800 module, but sometimes it goofs, so we'll send them again to be safe!
             phone.sendCommand("AT+CNMI=1,2,0,0,0")
-            break
+            break  # And then let us continue!
         else:
-            utime.sleep_ms(500)
+            utime.sleep_ms(500)  # If there is no reply, we'll wait a bit more
     checkMessages(10)  # Check the messages with a 10s delay between checking
 
 
 def checkReturned(returnedString):  # This takes an array from the message processer, and extracts the message and phone number
     number = None
     message = None
-
     if(len(returnedString) == 2):  # Just sanity check the data
         commandString = returnedString[0]  # The first bit should be the command string, starting with CMT
         commandString = commandString.lower()  # Just make it lower case.. makes everyones life easier if it is all the same
