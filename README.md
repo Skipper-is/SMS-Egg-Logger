@@ -16,7 +16,7 @@ The module can be purchased from: [AliExpress](https://www.aliexpress.com/item/3
 Download the repository
 
 You need to make a number of changes to the following files:
-### egg_poster.py
+### eggposter.py
 **Wifi**
 Put in your WIFI name, and password to 
 
