@@ -18,7 +18,7 @@ Download the repository
 You need to make a number of changes to the following files:
 ### egg_poster.py
 **Wifi**
-Put in your WIFI name, and password to
+Put in your WIFI name, and password to 
 
     wifiSSID = "Add your ssid here"
     wifipswd = "Your password in here"
@@ -41,11 +41,21 @@ Next, set the egg ID, this can be found from `/taxonomy_term.json?bundle=farm_qu
 
     egg_id = "43"
 
-You need to enter your FarmOS username and password here:
+You'll need to create an account that begins with restws_ in FarmOS for your login (and with appropriate permissions) (and make sure you've enabled basic authentication in modules)
 
-    farmOSUsername = "restws_username"
-    farmOSPassword = "password"
-You'll need to create an account that begins with restws_ in FarmOS for this (and with appropriate permissions)
+  Your login details go into `farmOSAuth = ""` but needs to be encoded in base64.
+  There are several ways of doing this, easiest is to go to:  [Base64Encode.org](https://www.base64encode.org/) and enter your details there, it needs to be in the following format:
+  
+
+    username:password
+Enode that, and you'll end up with something like this (this is for "restws_username:pass1234":
+
+    cmVzdHdzX3VzZXJuYW1lOnBhc3MxMjM0
+
+   So, the .py should look like this:
+   
+
+    farmOSAuth = "cmVzdHdzX3VzZXJuYW1lOnBhc3MxMjM0"
 
 There are some translation options
 
