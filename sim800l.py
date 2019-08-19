@@ -1,12 +1,19 @@
 from machine import Pin, I2C, UART
 import utime
+sim800_rx = 27
+sim800_tx = 26
+sim800_sda = 21
+sim800_scl = 22
+sim800_pwkey = 4
+sim800_rst = 5
+sim800_power = 23
 
 
 class Phone:
 
     def __init__(self):
 
-        self.uart = UART(1, baudrate=9600, bits=8, parity=None, stop=1, tx=27, rx=26)
+        self.uart = UART(1, baudrate=9600, bits=8, parity=None, stop=1, tx=sim800_rx, rx=sim800_tx)  # tx goes to the ESP32 rx, and visa versa
         self.powerBoost()
         self.powerOn()
         self.reset()
@@ -48,19 +55,19 @@ class Phone:
 
     def powerBoost(self):
         # The power boost is an I2C buck converter - the SIM800L can draw up to 2A during transmission, and runs on a weird voltage
-        i2c = I2C(scl=Pin(22), sda=Pin(21))
+        i2c = I2C(scl=Pin(sim800_scl), sda=Pin(sim800_sda))
         i2c.writeto_mem(0x75, 0x00, b'\x37')
         i2c.stop()
 
     def powerOn(self):
         # Power on the device!
-        powerOn = Pin(23, Pin.OUT)
+        powerOn = Pin(sim800_power, Pin.OUT)
         powerOn.value(1)
 
     def reset(self):
         # For some reason, the SIM800L module wants a very rapid reset.. It isn't a full reset, as that is
         # held low for 1000ms, this is just flash it low and then high agian.. If it works eh?
-        rst = Pin(14, Pin.OUT)
+        rst = Pin(sim800_rst, Pin.OUT)
         rst.value(1)
         utime.sleep_ms(1)
         rst.value(0)
@@ -71,7 +78,7 @@ class Phone:
     def cyclePower(self):
         # Weird one this, the sim800 module just seems to want the power cycled after the reset...
         # And this is a different pin... Pwkey and powerOn...I've no idea, I don't make the devices
-        pwkey = Pin(15, Pin.OUT)
+        pwkey = Pin(sim800_pwkey, Pin.OUT)
         pwkey.value(1)
         utime.sleep_ms(500)
         pwkey.value(0)
