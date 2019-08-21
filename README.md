@@ -69,6 +69,7 @@ There are some translation options
 And don't touch anything else in that file!
 
 ### eggposter.php
+:EDIT: I have had some success with posting without the eggposter.php, just add your `log.json?type=farm_harvest` API endpoint in as the .py post url
 The php file is the middle man between the T-Call and FarmOS. For some reason, the T-Call wouldn't post directly to FarmOS, so I had to mirror the post exactly through a php file, which works...
 One change you need to make here:
 
