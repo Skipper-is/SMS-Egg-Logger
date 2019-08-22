@@ -86,20 +86,27 @@ def checkReturned(returnedString):  # This takes an array from the message proce
 
 def quantityFromMessage(message):
     # I'm not happy with the implementation of this.....
-    count = ""
-    countInt = 0
-    if ("egg" in message):
-        for i in message:  # Go through each letter in the message, and figure out if it is a number or a decimal
-            if (i.isdigit() or i == "."):
-                count += i  # Add the number or point to a new string
-            product = "eggs"  # One day maybe I'll add milk too...
 
-        try:
-            countInt = int(count)  # Try and parse it to an int
-        except ValueError:
-            countInt = 0
-        return [countInt, product]
+    if ("egg" in message):
+        product = "eggs"
+        count = getNumber(message)
+        return [int(count), product]
     return None
+
+def getNumber(inputString):
+    numParse = ""
+    for i in range(len(inputString)):  # Iterate through the string, but with range, we iterate through the indexes
+        char=inputString[i]
+        if (char.isdigit() or char =='.'):
+            numParse+=char
+            try:
+                nexti = inputString[i+1]
+            except IndexError as err:  # This is called if the numbers are at the end of the string.
+                return(float(numParse))
+                break
+            if not (nexti.isdigit() or nexti == "."):  # This on is called if the number is at the beginning of the string
+                return(float(numParse))
+                break
 
 
 def checkMessages(delay):
