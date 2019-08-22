@@ -88,4 +88,5 @@ Can be variations of that as well, these all work:
     EgGs 23
     1 egg
     Add 2 eggs please
+If you send `10 eggs 12345` the first lot of numbers will be taken, so 10 eggs. 
 If it has been successful, you should get a text back saying so, and the record added to FarmOS
