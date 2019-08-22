@@ -20,7 +20,7 @@ egg_id = "43"  # This is the id of the egg unit - you can get this from taxonomy
 
 farmOSAuth = ""  # Unfortunately, micropython doesn't seem to have the base64 module, so you'll need to encode your username:password using a number of online tools
 # Such as https://www.base64encode.org/ - eg: "restws_username:pass1234" would give you "cmVzdHdzX3VzZXJuYW1lOnBhc3MxMjM0" as your farmOSAuth
-
+# TODO: Integrate this with micropython-farmOS.py, so we can use token authentication.
 
 # ========== Messages ==========
 # You can cusomise your responses here
@@ -85,7 +85,6 @@ def checkReturned(returnedString):  # This takes an array from the message proce
 
 
 def quantityFromMessage(message):
-    # I'm not happy with the implementation of this.....
 
     if ("egg" in message):
         product = "eggs"
@@ -94,6 +93,12 @@ def quantityFromMessage(message):
     return None
 
 def getNumber(inputString):
+    """
+    The getnumber function will return a float, so if you pass "bob 12.345", you will have
+    12.345 back. This will work (potentiall) in the future with other quantities like milk yields, where
+    decimal places are needed. For eggs, this float will be converted back to an int, so you're not adding 1.2 eggs!
+    """
+
     numParse = ""
     for i in range(len(inputString)):  # Iterate through the string, but with range, we iterate through the indexes
         char=inputString[i]
