@@ -1,6 +1,8 @@
 # Egg Logger for FarmOS
 Egg Logger is a program that is designed to run on a TTGO T-Call ESP32 module.
 The module can be purchased from: [AliExpress](https://www.aliexpress.com/item/33045221960.html), or [BangGood](https://www.banggood.com/LILYGO-TTGO-T-Call-V1_3-ESP32-Wireless-Module-GPRS-Antenna-SIM-Card-SIM800L-Board-p-1527048.html?rmmds=search&cur_warehouse=CN).
+### TODO
+Integrate Egg Logger with micropython-farmOS.py, so token authorisation can be used
 ## Requirements
 
  - ESP32 T-Call
