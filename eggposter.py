@@ -92,6 +92,7 @@ def quantityFromMessage(message):
         return [int(count), product]
     return None
 
+
 def getNumber(inputString):
     """
     The getnumber function will return a float, so if you pass "bob 12.345", you will have
@@ -101,12 +102,12 @@ def getNumber(inputString):
 
     numParse = ""
     for i in range(len(inputString)):  # Iterate through the string, but with range, we iterate through the indexes
-        char=inputString[i]
-        if (char.isdigit() or char =='.'):
-            numParse+=char
+        char = inputString[i]
+        if (char.isdigit() or char == '.'):
+            numParse += char
             try:
                 nexti = inputString[i+1]
-            except IndexError as err:  # This is called if the numbers are at the end of the string.
+            except IndexError:  # This is called if the numbers are at the end of the string.
                 return(float(numParse))
                 break
             if not (nexti.isdigit() or nexti == "."):  # This on is called if the number is at the beginning of the string
